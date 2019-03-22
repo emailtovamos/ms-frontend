@@ -44,9 +44,7 @@
 		
 			function makeShapeAppear(){
 				var url = "http://localhost:8081/getbs"
-				// $.get("http://localhost:8081/getbs", function(data, status){
-				// 	alert("Data: " + data.hs + "\nStatus: " + status);
-				// }, 'html');
+				var urlSize = "http://localhost:8081/getsize"
 				$.ajax({
 					url: url,
 					dataType: "jsonp",
@@ -56,9 +54,17 @@
 						highScore = data.hs;
 					}
 				});
-				var top = Math.random()*400;
-				var left = Math.random()*400;
-				var width = Math.random()*200 + 100;
+				$.ajax({
+					url: urlSize,
+					dataType: "jsonp",
+					success: function (data) {
+						console.log(data)
+						size = data.size;
+					}
+				});
+				var top = Math.random()*size;
+				var left = Math.random()*size;
+				var width = Math.random()*size/2 + 100;
 				if(Math.random() > 0.5){
 					document.getElementById("shape").style.borderRadius = "50%";	// Circle			
 				} else {
@@ -84,12 +90,8 @@
 				var end = new Date().getTime();
 				var timeTaken = (end-start)/1000; 
 				document.getElementById("timeTaken").innerHTML=timeTaken + "s" ; 
-				// var seturl = "localhost:8081/setbs/?hs=" + timeTaken; 
+				
 				var seturl = "http://localhost:8081/setbs/" + timeTaken; 
-				// var url = "http://localhost:8081/getbs"
-				// $.get("http://localhost:8081/getbs", function(data, status){
-				// 	alert("Data: " + data.hs + "\nStatus: " + status);
-				// }, 'html');
 				if (timeTaken < highScore) {
 					$.ajax({
 						url: seturl,
