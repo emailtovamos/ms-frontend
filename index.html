@@ -27,15 +27,13 @@
 	
 		<div id="shape"></div>
 
-		<!-- <div id="like_button_container"></div> -->
-
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 
 		<script type="text/javascript">
 			var start = new Date().getTime();
 			var highScore;
 			var size;
+			var urlSetScore = "/setscore/";
 			function getRandomColor() {
 				var letters = '0123456789ABCDEF';
 				var color = '#';
@@ -50,21 +48,7 @@
 				var urlSize = "http://ms-bff:8081/getsize"
 				urlSize = "/getsize"
 				url = "/getbs"
-				// urlsize = "http://127.0.0.1/getsize"
-				// const axios = require('axios');
-				// // Make a request for a user with a given ID
-				// axios.get('http://ms-bff:8081/getsize')
-				// .then(function (response) {
-				// 	// handle success
-				// 	console.log(response);
-				// })
-				// .catch(function (error) {
-				// 	// handle error
-				// 	console.log(error);
-				// })
-				// .then(function () {
-				// 	// always executed
-				// });
+
 				$.ajax({
 					url: url,
 					dataType: "jsonp",
@@ -113,6 +97,7 @@
 				
 				var seturl = "http://ms-bff:8081/setbs/" + timeTaken; 
 				seturl = "/setbs/" + timeTaken; 
+				timeTaken2 = timeTaken;
 				if (timeTaken < highScore) {
 					$.ajax({
 						url: seturl,
@@ -123,16 +108,19 @@
 						}
 					});
 				}
+				urlSetScore = "/setscore/" + timeTaken2;
+				console.log("clicked");
+				console.log(timeTaken2);
+				$.ajax({
+						url: urlSetScore,
+						dataType: "jsonp",
+						success: function (data) {
+							console.log(data.score);
+							// document.getElementById("bestScore").innerHTML= data.hs + "s" ; 
+						}
+					});
 				appearAfterDelay();
 			}
 		</script>
-	<!-- Load React. -->
-	<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-	<!-- <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-	<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
-
-	<!-- Load our React component. -->
-	<!-- <script src="like_button.js"></script> -->
 	</body>
 </html>
