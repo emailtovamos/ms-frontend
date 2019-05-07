@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: *service-name
-        image: emailtovamos/ms-frontend:v2
+        image: emailtovamos/ms-frontend:v3
         # command: ["./binary"]  # == ENTRYPOINT
         # args: 
         #   - --address-ms-highscore=ms-highscore:50051
