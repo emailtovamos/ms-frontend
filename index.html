@@ -44,10 +44,11 @@
 			}
 		
 			function makeShapeAppear(){
-				var url = "http://ms-bff:8081/getbs"
+				console.log("makeShapeAppear called");
+				var url = "http://ms-bff:8081/getbs" // This is url to use in dockercompose 
 				var urlSize = "http://ms-bff:8081/getsize"
 				urlSize = "/getsize"
-				url = "/getbs"
+				url = "/getbs" // This url is for kubernetes
 
 				$.ajax({
 					url: url,
@@ -87,7 +88,6 @@
 				setTimeout(makeShapeAppear, Math.random()*2000);
 			}
 			
-			setTimeout(makeShapeAppear, Math.random()*2500);
 			appearAfterDelay();
 			document.getElementById("shape").onclick = function(){
 				document.getElementById("shape").style.display = "none";
