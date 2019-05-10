@@ -45,10 +45,12 @@
 		
 			function makeShapeAppear(){
 				console.log("makeShapeAppear called");
-				var url = "http://ms-bff:8081/getbs" // This is url to use in dockercompose 
-				var urlSize = "http://ms-bff:8081/getsize"
-				urlSize = "/getsize"
-				url = "/getbs" // This url is for kubernetes
+				// var url = "http://ms-bff:8081/getbs" // This is url to use in dockercompose 
+				var url = "http://localhost:8081/getbs" // This is if every service is running locally using go run main.go
+				// var urlSize = "http://ms-bff:8081/getsize"
+				var urlSize = "http://localhost:8081/getsize"
+				// urlSize = "/getsize" // This url is for kubernetes
+				// url = "/getbs" // This url is for kubernetes
 
 				$.ajax({
 					url: url,
@@ -95,8 +97,9 @@
 				var timeTaken = (end-start)/1000; 
 				document.getElementById("timeTaken").innerHTML=timeTaken + "s" ; 
 				
-				var seturl = "http://ms-bff:8081/setbs/" + timeTaken; 
-				seturl = "/setbs/" + timeTaken; 
+				var seturl = "http://localhost:8081/setbs/" + timeTaken; // This is for running locally using go run
+				// var seturl = "http://ms-bff:8081/setbs/" + timeTaken; // This is for dockercompose
+				// var seturl = "/setbs/" + timeTaken; // This is for Kubernetes
 				timeTaken2 = timeTaken;
 				if (timeTaken < highScore) {
 					$.ajax({
@@ -108,7 +111,8 @@
 						}
 					});
 				}
-				urlSetScore = "/setscore/" + timeTaken2;
+				// urlSetScore = "/setscore/" + timeTaken2; // For Kubernetes
+				urlSetScore = "http://localhost:8081/setscore/" + timeTaken2;
 				console.log("clicked");
 				console.log(timeTaken2);
 				$.ajax({
